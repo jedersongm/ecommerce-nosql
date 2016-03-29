@@ -17,7 +17,7 @@ public interface ClienteDaoIF {
 
     public void inserir(Cliente c) throws SQLException;
 
-    public void remover(Cliente c) throws SQLException;
+    public void remover(String email) throws SQLException;
 
     public void atualizar(Cliente c) throws SQLException;
 
@@ -25,5 +25,7 @@ public interface ClienteDaoIF {
     
     public Cliente pesquisarPorEmail(String email) throws SQLException;
 
-    public List<Cliente> pesquisarClintes(String nome) throws SQLException;
+    public List<Cliente> listar() throws SQLException;
+
+    public boolean verificarExistenciaEmail(String email) throws SQLException;
 }

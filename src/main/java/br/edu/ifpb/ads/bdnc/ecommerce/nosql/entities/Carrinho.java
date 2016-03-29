@@ -5,6 +5,7 @@
  */
 package br.edu.ifpb.ads.bdnc.ecommerce.nosql.entities;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -13,6 +14,44 @@ import java.util.List;
  */
 public class Carrinho {
     
-    private int cod;
-    private List<Produto> carrinho;
+    private List<Item> itens;
+    private Double total;
+
+    public Carrinho(){
+        this.itens = new ArrayList<Item>();
+        this.total = 0.0;
+    }
+    public Carrinho(List<Item> itens, Double total) {
+        this.itens = itens;
+        this.total = total;
+    }
+
+    public List<Item> getItens() {
+        return itens;
+    }
+
+    public void setItens(List<Item> itens) {
+        this.itens = itens;
+    }
+
+    public Double getTotal() {
+        return total;
+    }
+
+    public void setTotal(Double total) {
+        this.total = total;
+    }
+    
+    public void adicionaItem(Item item){
+        if(itens.add(item)){
+            total += item.getProduto().getPreco()*item.getQuantidade();            
+        }
+    }
+    
+    public void removeItem(Item item){
+        if(itens.remove(item)){
+            total -= item.getProduto().getPreco()*item.getQuantidade();
+        }
+    }
+    
 }

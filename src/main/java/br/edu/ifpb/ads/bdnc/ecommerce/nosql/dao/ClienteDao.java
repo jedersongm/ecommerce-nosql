@@ -68,14 +68,14 @@ public class ClienteDao implements ClienteDaoIF{
     }
 
     @Override
-    public void remover(Cliente c) throws SQLException {
+    public void remover(String email) throws SQLException {
         try{
             conexao.abrir();
             
             String sql = "DELETE FROM cliente WHERE email = ?";
             
             pstm = con.prepareStatement(sql);
-            pstm.setString(1, c.getEmail());
+            pstm.setString(1, email);
             pstm.executeQuery();
             JOptionPane.showMessageDialog(null, "Cliente removido com sucesso");
         }catch(Exception ex){
@@ -199,7 +199,7 @@ public class ClienteDao implements ClienteDaoIF{
     }
 
     @Override
-    public List<Cliente> pesquisarClintes(String nome) throws SQLException {
+    public List<Cliente> listar() throws SQLException {
         
         try{
             conexao.abrir();
@@ -235,6 +235,57 @@ public class ClienteDao implements ClienteDaoIF{
             ex.printStackTrace();
         }
         return null;
+    }
+    
+    public boolean logar(String email, String senha) throws SQLException {
+        try {
+            conexao.abrir();
+       
+            String SQL = "SELECT * FROM cliente WHERE email = ?";
+            pstm = con.prepareStatement(SQL);
+            pstm.setString(1, email);
+            
+            ResultSet rs = pstm.executeQuery();            
+            Cliente c = new Cliente();
+            
+            while(rs.next()){
+                c.setCPF(rs.getString("CPF"));
+                c.setNome(rs.getString("nome"));
+                c.setApelido(rs.getString("apelido"));
+                c.setSenha(rs.getString("senha"));
+                c.setEmail(rs.getString("email"));
+                c.setTelefone(rs.getString("telefone"));
+                c.setDataNascimento(rs.getDate("dataNascimento"));
+                c.setSexo(rs.getString("sexo"));
+                c.setNumero(rs.getInt("numero"));
+                c.setRua(rs.getString("rua"));
+                c.setBairro(rs.getString("bairro"));
+                c.setCidade(rs.getString("cidade"));
+                c.setEstado(rs.getString("estado"));
+                c.setCEP(rs.getString("CEP"));
+            }
+            
+            if (c.getEmail() != null && c.getSenha() != null){
+                if (c.getEmail().equalsIgnoreCase(email) 
+                        && c.getSenha().equalsIgnoreCase(senha)){
+                    return true;
+                }
+                else 
+                    return false;
+            }
+            else
+                return false;
+        } catch(Exception ex) { 
+            ex.printStackTrace();
+        } finally {
+            conexao.liberar();
+        }
+        return false;
+    }
+    
+    @Override
+    public boolean verificarExistenciaEmail(String email) throws SQLException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
 }

@@ -13,16 +13,22 @@ import java.util.Objects;
  */
 public class Produto {
     private int cod;
-    private String descricao;
+    private String titulo;
+    private String banda;
+    private String genero;
+    private int ano;
     private Double preco;
     
     public Produto(){
         
     }
 
-    public Produto(int cod, String descricao, Double preco) {
+    public Produto(int cod, String titulo, String banda,String genero, int ano, Double preco) {
         this.cod = cod;
-        this.descricao = descricao;
+        this.titulo = titulo;
+        this.banda = banda;
+        this.genero = genero;
+        this.ano = ano;
         this.preco = preco;
     }
 
@@ -34,12 +40,12 @@ public class Produto {
         this.cod = cod;
     }
 
-    public String getDescricao() {
-        return descricao;
+    public String getTitulo() {
+        return titulo;
     }
 
-    public void setDescricao(String descricao) {
-        this.descricao = descricao;
+    public void setTitulo(String titulo) {
+        this.titulo = titulo;
     }
 
     public Double getPreco() {
@@ -50,12 +56,39 @@ public class Produto {
         this.preco = preco;
     }
 
+    public String getBanda() {
+        return banda;
+    }
+
+    public void setBanda(String banda) {
+        this.banda = banda;
+    }
+
+    public String getGenero() {
+        return genero;
+    }
+
+    public void setGenero(String genero) {
+        this.genero = genero;
+    }
+
+    public int getAno() {
+        return ano;
+    }
+
+    public void setAno(int ano) {
+        this.ano = ano;
+    }
+
     @Override
     public int hashCode() {
-        int hash = 3;
-        hash = 29 * hash + this.cod;
-        hash = 29 * hash + Objects.hashCode(this.descricao);
-        hash = 29 * hash + Objects.hashCode(this.preco);
+        int hash = 7;
+        hash = 59 * hash + this.cod;
+        hash = 59 * hash + Objects.hashCode(this.titulo);
+        hash = 59 * hash + Objects.hashCode(this.banda);
+        hash = 59 * hash + Objects.hashCode(this.genero);
+        hash = 59 * hash + this.ano;
+        hash = 59 * hash + Objects.hashCode(this.preco);
         return hash;
     }
 
@@ -74,7 +107,16 @@ public class Produto {
         if (this.cod != other.cod) {
             return false;
         }
-        if (!Objects.equals(this.descricao, other.descricao)) {
+        if (this.ano != other.ano) {
+            return false;
+        }
+        if (!Objects.equals(this.titulo, other.titulo)) {
+            return false;
+        }
+        if (!Objects.equals(this.banda, other.banda)) {
+            return false;
+        }
+        if (!Objects.equals(this.genero, other.genero)) {
             return false;
         }
         if (!Objects.equals(this.preco, other.preco)) {
@@ -82,6 +124,6 @@ public class Produto {
         }
         return true;
     }
-    
+   
     
 }

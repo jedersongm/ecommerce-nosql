@@ -40,12 +40,15 @@ public class ProdutoDao implements ProdutoDaoIF{
         try{
             conexao.abrir();
             
-            String sql = "INSERT INTO produto(cod,descricao,preco) VALUES(?,?,?)";
+            String sql = "INSERT INTO produto(cod,titulo,banda,genero,ano,preco) VALUES(?,?,?,?,?,?)";
             
             pstm = con.prepareStatement(sql);
             pstm.setInt(1, p.getCod());
-            pstm.setString(2, p.getDescricao());
-            pstm.setDouble(3, p.getPreco());
+            pstm.setString(2, p.getTitulo());
+            pstm.setString(3, p.getBanda());
+            pstm.setString(4, p.getGenero());
+            pstm.setInt(5, p.getAno());
+            pstm.setDouble(6, p.getPreco());
             
             pstm.executeQuery();
             JOptionPane.showMessageDialog(null, "Produto cadastrado com sucesso");
@@ -78,12 +81,15 @@ public class ProdutoDao implements ProdutoDaoIF{
        try{
            conexao.abrir();
            
-           String sql = "UDPATE produto SET descricao=?, preco=? WHERE cod=?";
+           String sql = "UDPATE produto SET titulo=?, banda =?, genero =?, ano =? preco=? WHERE cod=?";
            
            pstm = con.prepareStatement(sql);
-           pstm.setString(1, p.getDescricao());
-           pstm.setDouble(2, p.getPreco());
-           pstm.setInt(3, p.getCod());
+           pstm.setString(1, p.getTitulo());
+           pstm.setString(2, p.getBanda());
+           pstm.setString(3, p.getGenero());
+           pstm.setInt(4, p.getAno());
+           pstm.setDouble(5, p.getPreco());
+           pstm.setInt(6, p.getCod());
            
            pstm.executeUpdate();
            
@@ -95,11 +101,11 @@ public class ProdutoDao implements ProdutoDaoIF{
     }
 
     @Override
-    public Produto pesquisar(String descricao) throws SQLException {
+    public Produto pesquisar(String titulo) throws SQLException {
         try{
             conexao.abrir();
             
-            String sql = "SELECT * FROM produto WHERE descricao ILIKE '%"+descricao+"%'";
+            String sql = "SELECT * FROM produto WHERE titulo ILIKE '%"+titulo+"%'";
             
             pstm = con.prepareStatement(sql);
             
@@ -109,7 +115,10 @@ public class ProdutoDao implements ProdutoDaoIF{
             
             while(rs.next()){
                 p.setCod(rs.getInt("cod"));
-                p.setDescricao(rs.getString("descricao"));
+                p.setTitulo(rs.getString("titulo"));
+                p.setBanda(rs.getString("banda"));
+                p.setGenero(rs.getString("genero"));
+                p.setAno(rs.getInt("ano"));
                 p.setPreco(rs.getDouble("preco"));
             }
             
@@ -125,12 +134,12 @@ public class ProdutoDao implements ProdutoDaoIF{
     }
 
     @Override
-    public List<Produto> pesquisarProdutos(String descricao) throws SQLException {
+    public List<Produto> pesquisarProdutos(String titulo) throws SQLException {
         
         try{
             conexao.abrir();
             
-            String sql = "SELECT cod, descricao, preco FROM produto";
+            String sql = "SELECT cod, titulo, banda, genero, ano, preco FROM produto";
             
             pstm = con.prepareStatement(sql);
             
@@ -141,7 +150,10 @@ public class ProdutoDao implements ProdutoDaoIF{
             while(rs.next()){
                 Produto p = new Produto();
                 p.setCod(rs.getInt("cod"));
-                p.setDescricao(rs.getString("descricao"));
+                p.setTitulo(rs.getString("titulo"));
+                p.setBanda(rs.getString("banda"));
+                p.setGenero(rs.getString("genero"));
+                p.setAno(rs.getInt("ano"));
                 p.setPreco(rs.getDouble("preco"));
                 stock.add(p);
             }
