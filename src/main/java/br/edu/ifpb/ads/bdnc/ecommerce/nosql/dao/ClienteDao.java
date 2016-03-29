@@ -14,6 +14,7 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import javax.naming.spi.DirStateFactory;
 import javax.swing.JOptionPane;
@@ -120,6 +121,7 @@ public class ClienteDao implements ClienteDaoIF{
             String sql = "SELECT * FROM cliente WHERE CPF = ?";
             
             pstm = con.prepareStatement(sql);
+            pstm.setString(1, cpf);
             
             Cliente c = new Cliente();
             
@@ -131,10 +133,19 @@ public class ClienteDao implements ClienteDaoIF{
                 c.setApelido(rs.getString("apelido"));
                 c.setSenha(rs.getString("senha"));
                 c.setEmail(rs.getString("email"));
-                c.setTelefone(rs.getString(""));
-            }
+                c.setTelefone(rs.getString("telefone"));
+                c.setDataNascimento(rs.getDate("dataNascimento"));
+                c.setSexo(rs.getString("sexo"));
+                c.setNumero(rs.getInt("numero"));
+                c.setRua(rs.getString("rua"));
+                c.setBairro(rs.getString("bairro"));
+                c.setCidade(rs.getString("cidade"));
+                c.setEstado(rs.getString("estado"));
+                c.setCEP(rs.getString("CEP"));
+            }            
             
             return c;
+            
         }catch(Exception ex){
             ex.printStackTrace();
         }finally{
@@ -147,12 +158,83 @@ public class ClienteDao implements ClienteDaoIF{
     
     @Override
     public Cliente pesquisarPorEmail(String email) throws SQLException{
-        
+         try{
+            conexao.abrir();
+            
+            String sql = "SELECT * FROM cliente WHERE email = ?";
+            
+            pstm = con.prepareStatement(sql);
+            pstm.setString(1, email);
+            
+            Cliente c = new Cliente();
+            
+            ResultSet rs = pstm.executeQuery();
+            
+            while(rs.next()){
+                c.setCPF(rs.getString("CPF"));
+                c.setNome(rs.getString("nome"));
+                c.setApelido(rs.getString("apelido"));
+                c.setSenha(rs.getString("senha"));
+                c.setEmail(rs.getString("email"));
+                c.setTelefone(rs.getString("telefone"));
+                c.setDataNascimento(rs.getDate("dataNascimento"));
+                c.setSexo(rs.getString("sexo"));
+                c.setNumero(rs.getInt("numero"));
+                c.setRua(rs.getString("rua"));
+                c.setBairro(rs.getString("bairro"));
+                c.setCidade(rs.getString("cidade"));
+                c.setEstado(rs.getString("estado"));
+                c.setCEP(rs.getString("CEP"));
+            }            
+            
+            return c;
+            
+         }catch(Exception ex){
+             ex.printStackTrace();
+         } finally{
+             conexao.liberar();
+         }    
+         
+        return null;
     }
 
     @Override
     public List<Cliente> pesquisarClintes(String nome) throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        
+        try{
+            conexao.abrir();
+            
+            String sql = "SELECT * FROM cliente";
+            
+            pstm = con.prepareStatement(sql);
+            ResultSet rs = pstm.executeQuery();
+            List<Cliente> clientes = new ArrayList<Cliente>();
+            
+            while(rs.next()){
+                Cliente c = new Cliente();
+                c.setCPF(rs.getString("CPF"));
+                c.setNome(rs.getString("nome"));
+                c.setApelido(rs.getString("apelido"));
+                c.setSenha(rs.getString("senha"));
+                c.setEmail(rs.getString("email"));
+                c.setTelefone(rs.getString("telefone"));
+                c.setDataNascimento(rs.getDate("dataNascimento"));
+                c.setSexo(rs.getString("sexo"));
+                c.setNumero(rs.getInt("numero"));
+                c.setRua(rs.getString("rua"));
+                c.setBairro(rs.getString("bairro"));
+                c.setCidade(rs.getString("cidade"));
+                c.setEstado(rs.getString("estado"));
+                c.setCEP(rs.getString("CEP"));
+                clientes.add(c);
+            }
+            
+            return clientes.isEmpty() ? null : clientes;
+            
+        } catch(Exception ex){
+            ex.printStackTrace();
+        }
+        return null;
     }
     
 }
