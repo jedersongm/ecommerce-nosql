@@ -21,7 +21,9 @@ public interface ClienteDaoIF {
 
     public void atualizar(Cliente c) throws SQLException;
 
-    public Cliente pesquisar(String cpf) throws SQLException;
+    public Cliente pesquisarPorCPF(String cpf) throws SQLException;
+    
+    public Cliente pesquisarPorEmail(String email) throws SQLException;
 
     public List<Cliente> pesquisarClintes(String nome) throws SQLException;
 }

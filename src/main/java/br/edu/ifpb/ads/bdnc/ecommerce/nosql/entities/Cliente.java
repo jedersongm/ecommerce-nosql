@@ -15,7 +15,9 @@ import java.util.Objects;
 public class Cliente {
     
     private String CPF;
-    private String name;    
+    private String nome;
+    private String apelido;
+    private String senha;
     private String email;
     private String telefone;
     private Date dataNascimento;
@@ -32,9 +34,10 @@ public class Cliente {
         
     }
 
-    public Cliente(String CPF, String name, String email, String telefone, Date dataNascimento, String sexo, String rua, int numero, String bairro, String cidade, String estado, String CEP) {
+    public Cliente(String CPF, String nome,String apelido, String senha, String email, String telefone, Date dataNascimento, String sexo, String rua, int numero, String bairro, String cidade, String estado, String CEP) {
         this.CPF = CPF;
-        this.name = name;
+        this.nome = nome;
+        this.apelido = apelido;
         this.email = email;
         this.telefone = telefone;
         this.dataNascimento = dataNascimento;
@@ -46,7 +49,6 @@ public class Cliente {
         this.estado = estado;
         this.CEP = CEP;
     }
-
     
 
     public String getCPF() {
@@ -57,12 +59,12 @@ public class Cliente {
         this.CPF = CPF;
     }
 
-    public String getName() {
-        return name;
+    public String getNome() {
+        return nome;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setNome(String nome) {
+        this.nome = nome;
     }
 
     public String getEmail() {
@@ -145,11 +147,30 @@ public class Cliente {
         this.CEP = CEP;
     }
 
+    public String getApelido() {
+        return apelido;
+    }
+
+    public void setApelido(String apelido) {
+        this.apelido = apelido;
+    }
+
+    public String getSenha() {
+        return senha;
+    }
+
+    public void setSenha(String senha) {
+        this.senha = senha;
+    }
+    
+
     @Override
     public int hashCode() {
         int hash = 3;
         hash = 47 * hash + Objects.hashCode(this.CPF);
-        hash = 47 * hash + Objects.hashCode(this.name);
+        hash = 47 * hash + Objects.hashCode(this.nome);
+        hash = 47 * hash + Objects.hashCode(this.apelido);
+        hash = 47 * hash + Objects.hashCode(this.senha);
         hash = 47 * hash + Objects.hashCode(this.email);
         hash = 47 * hash + Objects.hashCode(this.telefone);
         hash = 47 * hash + Objects.hashCode(this.dataNascimento);
@@ -181,7 +202,13 @@ public class Cliente {
         if (!Objects.equals(this.CPF, other.CPF)) {
             return false;
         }
-        if (!Objects.equals(this.name, other.name)) {
+        if (!Objects.equals(this.nome, other.nome)) {
+            return false;
+        }
+        if (!Objects.equals(this.apelido, other.apelido)) {
+            return false;
+        }
+        if (!Objects.equals(this.senha, other.senha)) {
             return false;
         }
         if (!Objects.equals(this.email, other.email)) {
@@ -216,10 +243,10 @@ public class Cliente {
 
     @Override
     public String toString() {
-        return "Cliente{" + "CPF=" + CPF + ", name=" + name + ", email=" + email + ", telefone=" + telefone + ", dataNascimento=" + dataNascimento + ", sexo=" + sexo + ", rua=" + rua + ", numero=" + numero + ", bairro=" + bairro + ", cidade=" + cidade + ", estado=" + estado + ", CEP=" + CEP + '}';
+        return "Cliente{" + "CPF=" + CPF + ", nome=" + nome + ", apelido=" + apelido + ", senha=" + senha + ", email=" + email + ", telefone=" + telefone + ", dataNascimento=" + dataNascimento + ", sexo=" + sexo + ", rua=" + rua + ", numero=" + numero + ", bairro=" + bairro + ", cidade=" + cidade + ", estado=" + estado + ", CEP=" + CEP + '}';
     }
 
-    
+       
             
     
             
